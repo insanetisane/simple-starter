@@ -47,7 +47,7 @@ const html = (done) => {
     .pipe(pug({
       basedir: "./src/",
     }))
-    .on('error', function(err, done) {
+    .on('error', function(err) {
       console.log(err);
       done()
     })
@@ -61,7 +61,7 @@ const css = (done) => {
         nesting,
         autoprefixer,
     ]))
-    .on('error', function(err, done) {
+    .on('error', function(err) {
       console.log(err);
       done()
     })
@@ -72,7 +72,7 @@ const css = (done) => {
 const scripts = (done) => {
   return gulp.src(paths.scripts, { sourcemaps: true })
     .pipe(babel())
-    .on('error', function(err, done) {
+    .on('error', function(err) {
       console.log(err);
       done()
     })
