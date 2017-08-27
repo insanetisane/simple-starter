@@ -1,15 +1,15 @@
-import gulp from 'gulp';
-import plumber from 'gulp-plumber';
-import babel from 'gulp-babel';
-import concat from 'gulp-concat';
-import pug from 'gulp-pug';
-import postcss from 'gulp-postcss';
-import nesting from 'postcss-nesting';
-import customProperties from 'postcss-custom-properties';
-import autoprefixer from 'autoprefixer';
-// import uglify from 'gulp-uglify';
-import del from 'del';
-import browserSync from 'browser-sync';
+const gulp =  require('gulp');
+const plumber =  require('gulp-plumber');
+const babel =  require('gulp-babel');
+const concat =  require('gulp-concat');
+const pug =  require('gulp-pug');
+const postcss =  require('gulp-postcss');
+const nesting =  require('postcss-nesting');
+const customProperties =  require('postcss-custom-properties');
+const autoprefixer =  require('autoprefixer');
+// const uglify =  require('gulp-uglify');
+const del =  require('del');
+const browserSync =  require('browser-sync');
 
 const paths = {
   src: './src',
@@ -31,28 +31,30 @@ paths.scripts = [
   `${paths.src}/_components/**/*.js`,
 ]
 
-const handleError = (err) => console.log(err)
+const handleError = function (err) {
+  // gutil.beep();
+  console.log(err);
+};
 
-export const clean = () => del(paths.dest)
+const clean = () => del(paths.dest)
 
-export const copy = () => {
+const copy = () => {
   return gulp.src(paths.src + '/static/**/*')
     .pipe(gulp.dest(paths.dest))
 }
 
-export const html = () => {
+const html = (done) => {
   return gulp.src(paths.html)
     .pipe(plumber())
     .pipe(pug({
       basedir: "./src/",
-      cache: false
     }))
-    .on('error', handleError)
     .pipe(gulp.dest(paths.dest))
 }
 
-export function css() {
+const css = () => {
   return gulp.src(paths.css, { sourcemaps: true })
+    .pipe(plumber())
     .pipe(postcss([
         customProperties,
         nesting,
@@ -62,21 +64,22 @@ export function css() {
     .pipe(gulp.dest(`${paths.dest}/assets`));
 }
 
-export function scripts() {
+const scripts = () => {
   return gulp.src(paths.scripts, { sourcemaps: true })
+    .pipe(plumber())
     .pipe(babel())
     // .pipe(uglify())
     .pipe(concat('app.js'))
     .pipe(gulp.dest(`${paths.dest}/assets`));
 }
 
-export const watch = () => {
+const watch = () => {
   gulp.watch(`${paths.src}/**/*.{html,pug}`, html)
   gulp.watch(`${paths.src}/**/*.css`, css)
   gulp.watch(`${paths.src}/**/*.js`, scripts)
 }
 
-export const serve = () => {
+const serve = (done) => {
   browserSync({
     // https: true,
     // port: 3000,
@@ -91,6 +94,16 @@ export const serve = () => {
   });
 }
 
-export const build = gulp.series(clean, gulp.parallel(copy, html, css, scripts))
-export const dev = gulp.series(build, gulp.parallel(watch, serve))
-export default dev
+const build = gulp.series(clean, gulp.parallel(copy, html, css, scripts))
+const dev = gulp.series(build, gulp.parallel(watch, serve))
+
+exports.clean = clean
+exports.copy = copy
+exports.html = html
+exports.css = css
+exports.scripts = scripts
+exports.watch = watch
+exports.serve = serve
+exports.build = build
+exports.dev = dev
+exports.default = dev

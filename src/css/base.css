@@ -16,7 +16,4 @@ body {
   font-weight: 300;
   color: var(--base-color);
   line-height: 1.4;
-  & > h1 {
-    color: blue;
-  }
 }
