@@ -45,29 +45,38 @@ const copy = () => {
 
 const html = (done) => {
   return gulp.src(paths.html)
-    .pipe(plumber())
     .pipe(pug({
       basedir: "./src/",
     }))
+    .on('error', function(err, done) {
+      console.log(err);
+      done()
+    })
     .pipe(gulp.dest(paths.dest))
 }
 
-const css = () => {
+const css = (done) => {
   return gulp.src(paths.css, { sourcemaps: true })
-    .pipe(plumber())
     .pipe(postcss([
         customProperties,
         nesting,
         autoprefixer,
-      ]))
+    ]))
+    .on('error', function(err, done) {
+      console.log(err);
+      done()
+    })
     .pipe(concat('style.css'))
     .pipe(gulp.dest(`${paths.dest}/assets`));
 }
 
-const scripts = () => {
+const scripts = (done) => {
   return gulp.src(paths.scripts, { sourcemaps: true })
-    .pipe(plumber())
     .pipe(babel())
+    .on('error', function(err, done) {
+      console.log(err);
+      done()
+    })
     // .pipe(uglify())
     .pipe(concat('app.js'))
     .pipe(gulp.dest(`${paths.dest}/assets`));
