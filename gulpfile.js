@@ -1,5 +1,4 @@
 const gulp =  require('gulp');
-const plumber =  require('gulp-plumber');
 const babel =  require('gulp-babel');
 const concat =  require('gulp-concat');
 const pug =  require('gulp-pug');
