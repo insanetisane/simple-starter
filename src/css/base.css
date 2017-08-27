@@ -1,0 +1,22 @@
+/* Base */
+:root {
+  font-size: 10px;
+  box-sizing: border-box;
+
+  --base-color: #333;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-size: 2.2rem;
+  font-family: "Helvetica";
+  font-weight: 300;
+  color: var(--base-color);
+  line-height: 1.4;
+  & > h1 {
+    color: blue;
+  }
+}
