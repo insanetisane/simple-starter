@@ -26,6 +26,7 @@ paths.css = [
   `${paths.src}/components/**/*.css`,
 ]
 paths.scripts = [
+  `${paths.src}/js/util.js`,
   `${paths.src}/components/**/*.js`,
   `${paths.src}/js/app.js`,
 ]
