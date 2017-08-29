@@ -23,11 +23,11 @@ paths.css = [
   // `${paths.src}/css/fonts.css`,
   `${paths.src}/css/base.css`,
   `${paths.src}/css/global.css`,
-  `${paths.src}/_components/**/*.css`,
+  `${paths.src}/components/**/*.css`,
 ]
 paths.scripts = [
+  `${paths.src}/components/**/*.js`,
   `${paths.src}/js/app.js`,
-  `${paths.src}/_components/**/*.js`,
 ]
 
 const handleError = function (err) {
