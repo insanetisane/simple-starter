@@ -1,2 +1,3 @@
-mixin hello-world({ending} = {})
-  h1 Hello World#{ending}
+mixin hello-world({message, ending} = {})
+  if message
+    h1 #{message}#{ending}
