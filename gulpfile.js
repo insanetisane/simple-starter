@@ -26,8 +26,8 @@ paths.css = [
   `${paths.src}/components/**/*.css`,
 ]
 paths.scripts = [
-  `${paths.src}/components/**/*.js`,
   `${paths.src}/js/app.js`,
+  `${paths.src}/components/**/*.js`,
 ]
 
 const handleError = function (err) {
