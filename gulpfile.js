@@ -2,6 +2,7 @@ const gulp =  require('gulp');
 const babel =  require('gulp-babel');
 const concat =  require('gulp-concat');
 const pug =  require('gulp-pug');
+const sourcemaps = require('gulp-sourcemaps');
 const postcss =  require('gulp-postcss');
 const nesting =  require('postcss-nesting');
 const customProperties =  require('postcss-custom-properties');
@@ -40,6 +41,7 @@ const copy = () => {
 
 const html = (done) => {
   return gulp.src(paths.html)
+    .pipe(sourcemaps.init())
     .pipe(pug({
       basedir: "./src/",
     }))
@@ -47,11 +49,13 @@ const html = (done) => {
       console.log(err);
       done()
     })
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(paths.dest))
 }
 
 const css = (done) => {
   return gulp.src(paths.css, { sourcemaps: true })
+    .pipe(sourcemaps.init())
     .pipe(concat('style.css'))
     .pipe(postcss([
         customProperties,
@@ -62,11 +66,13 @@ const css = (done) => {
       console.log(err);
       done()
     })
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(`${paths.dest}/assets`));
 }
 
 const scripts = (done) => {
   return gulp.src(paths.scripts, { sourcemaps: true })
+    .pipe(sourcemaps.init())
     .pipe(concat('app.js'))
     .pipe(babel())
     .on('error', function(err) {
@@ -74,6 +80,7 @@ const scripts = (done) => {
       done()
     })
     // .pipe(uglify())
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(`${paths.dest}/assets`));
 }
 
