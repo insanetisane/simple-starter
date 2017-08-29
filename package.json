@@ -5,9 +5,8 @@
   "main": "bs-config.js",
   "dependencies": {
     "autoprefixer": "^7.1.2",
-    "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.6.0",
-    "babel-register": "^6.24.1",
+    "babel-register": "^6.26.0",
     "browser-sync": "^2.18.13",
     "del": "^3.0.0",
     "gulp": "github:gulpjs/gulp#4.0",

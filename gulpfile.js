@@ -31,11 +31,6 @@ paths.scripts = [
   `${paths.src}/js/app.js`,
 ]
 
-const handleError = function (err) {
-  // gutil.beep();
-  console.log(err);
-};
-
 const clean = () => del(paths.dest)
 
 const copy = () => {
@@ -57,6 +52,7 @@ const html = (done) => {
 
 const css = (done) => {
   return gulp.src(paths.css, { sourcemaps: true })
+    .pipe(concat('style.css'))
     .pipe(postcss([
         customProperties,
         nesting,
@@ -66,19 +62,18 @@ const css = (done) => {
       console.log(err);
       done()
     })
-    .pipe(concat('style.css'))
     .pipe(gulp.dest(`${paths.dest}/assets`));
 }
 
 const scripts = (done) => {
   return gulp.src(paths.scripts, { sourcemaps: true })
+    .pipe(concat('app.js'))
     .pipe(babel())
     .on('error', function(err) {
       console.log(err);
       done()
     })
     // .pipe(uglify())
-    .pipe(concat('app.js'))
     .pipe(gulp.dest(`${paths.dest}/assets`));
 }
 
