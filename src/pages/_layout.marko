@@ -1,0 +1,22 @@
+$ console.log(input)
+
+<!doctype html>
+html
+  head
+    meta charset='utf-8'
+    meta http-equiv='x-ua-compatible', content='ie=edge'
+    meta name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no'
+    title -- ${input.page_title}
+    meta name="description", content=input.description
+    include(input.meta)
+    link rel='stylesheet', href='assets/style.css'
+    include(input.styles)
+    include(input.head)
+  body
+    include(input.body)
+    main
+      include(input.main)
+      
+    include(input.scripts)
+    script src='assets/app.js'
+    $ console.log(input)

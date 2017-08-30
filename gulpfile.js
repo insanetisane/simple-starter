@@ -1,7 +1,8 @@
+const path =  require('path');
 const gulp =  require('gulp');
 const babel =  require('gulp-babel');
 const concat =  require('gulp-concat');
-const pug =  require('gulp-pug');
+const each =  require('gulp-each');
 const sourcemaps = require('gulp-sourcemaps');
 const postcss =  require('gulp-postcss');
 const nesting =  require('postcss-nesting');
@@ -10,6 +11,11 @@ const autoprefixer =  require('autoprefixer');
 // const uglify =  require('gulp-uglify');
 const del =  require('del');
 const browserSync =  require('browser-sync');
+require('marko/node-require');
+require('marko/compiler').configure({
+  writeToDisk: false
+});
+require('marko/hot-reload').enable();
 
 const paths = {
   src: './src',
@@ -17,6 +23,10 @@ const paths = {
 }
 paths.html = [
   `${paths.src}/pages/**/*.{html,pug}`,
+  `!${paths.src}/**/_{*,**/*}`,
+]
+paths.marko = [
+  `${paths.src}/pages/**/*.marko`,
   `!${paths.src}/**/_{*,**/*}`,
 ]
 paths.css = [
@@ -39,11 +49,19 @@ const copy = () => {
     .pipe(gulp.dest(paths.dest))
 }
 
-const html = (done) => {
-  return gulp.src(paths.html)
+const marko = (done) => {
+  return gulp.src(paths.marko)
     .pipe(sourcemaps.init())
-    .pipe(pug({
-      basedir: "./src/",
+    .pipe(each((content, file, callback) => {
+      const filepath = './'+path.relative(__dirname, file.path)
+      try {
+        const template = require(filepath)
+        file.extname = '.html'
+        const templateRendered = template.renderToString({}, callback)
+      }
+      catch (err) {
+        callback(err)
+      }
     }))
     .on('error', function(err) {
       console.log(err);
@@ -85,7 +103,10 @@ const scripts = (done) => {
 }
 
 const watch = () => {
-  gulp.watch(`${paths.src}/**/*.{html,pug}`, html)
+  gulp.watch(`${paths.src}/**/*.marko`, marko)
+  .on('all', (e, filepath) => {
+    require('marko/hot-reload').handleFileModified(path.join(__dirname, filepath))
+  })
   gulp.watch(`${paths.src}/**/*.css`, css)
   gulp.watch(`${paths.src}/**/*.js`, scripts)
 }
@@ -105,12 +126,12 @@ const serve = (done) => {
   });
 }
 
-const build = gulp.series(clean, gulp.parallel(copy, html, css, scripts))
+const build = gulp.series(clean, gulp.parallel(copy, marko, css, scripts))
 const dev = gulp.series(build, gulp.parallel(watch, serve))
 
 exports.clean = clean
 exports.copy = copy
-exports.html = html
+exports.marko = marko
 exports.css = css
 exports.scripts = scripts
 exports.watch = watch
