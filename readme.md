@@ -1,4 +1,6 @@
+# Simple Starter
 required: `gulp-cli`
+
 `npm i -g gulp-cli`
 
 ```
