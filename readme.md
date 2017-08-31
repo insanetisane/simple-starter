@@ -1,6 +1,6 @@
 # Simple Starter
 
-A boilerplate for simple and modern website development.
+A boilerplate for simple, modern website development using Pug, Postcss, and Babel.
 
 ## Features
 
