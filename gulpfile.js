@@ -17,11 +17,11 @@ const paths = {
 }
 paths.html = [
   `${paths.src}/pages/**/*.{html,pug}`,
-  `!${paths.src}/**/_{*,**/*}`,
+  `!${paths.src}/**/_{*,**/*}`, // ignore files that start with _
 ]
 paths.css = [
   `${paths.src}/css/normalize.css`,
-  // `${paths.src}/css/fonts.css`,
+  `${paths.src}/css/fonts.css`,
   `${paths.src}/css/base.css`,
   `${paths.src}/css/global.css`,
   `${paths.src}/components/**/*.css`,
