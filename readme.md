@@ -1,11 +1,11 @@
 # Simple Starter
 
-A boilerplate for simple, modern website development using Pug, Postcss, and Babel.
+A boilerplate for simple, modern website development using Pug, Sass, and Babel.
 
 ## Features
 
 - pug templating (component style example included)
-- postcss (custom-properties and nesting included by default)
+- sass
 - babel (env preset by default. No module bundling)
 - live reload via browsersync
 - gulp build system
