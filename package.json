@@ -12,11 +12,9 @@
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-babel": "^7.0.0",
     "gulp-concat": "^2.6.1",
-    "gulp-postcss": "^7.0.0",
     "gulp-pug": "^3.3.0",
-    "gulp-sourcemaps": "^2.6.1",
-    "postcss-custom-properties": "^6.1.0",
-    "postcss-nesting": "^4.1.0"
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

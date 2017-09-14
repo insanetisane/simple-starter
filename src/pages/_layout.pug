@@ -14,7 +14,12 @@ html
     block meta
       meta(name="description", content="#{description}")
     block styles
-      link(rel='stylesheet', href='assets/style.css')
+      //- link(rel='stylesheet', href='assets/style.css')
+      link(rel='stylesheet' href='/assets/css/normalize.css')
+      link(rel='stylesheet' href='/assets/css/fonts.css')
+      link(rel='stylesheet' href='/assets/css/base.css')
+      link(rel='stylesheet' href='/assets/css/global.css')
+
     block head
   body
     block body
@@ -22,4 +27,4 @@ html
       block main
     block footer
     block scripts
-      script(src='assets/app.js')
+      script(src='/assets/js/app.js')

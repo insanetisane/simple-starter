@@ -1,11 +1,13 @@
 const gulp =  require('gulp');
+const gutil =  require('gulp-util');
 const babel =  require('gulp-babel');
+const sourcemaps =  require('gulp-sourcemaps');
 const concat =  require('gulp-concat');
 const pug =  require('gulp-pug');
-const sourcemaps = require('gulp-sourcemaps');
-const postcss =  require('gulp-postcss');
-const nesting =  require('postcss-nesting');
-const customProperties =  require('postcss-custom-properties');
+const sass =  require('gulp-sass');
+// const postcss =  require('gulp-postcss');
+// const nesting =  require('postcss-nesting');
+// const customProperties =  require('postcss-custom-properties');
 const autoprefixer =  require('autoprefixer');
 // const uglify =  require('gulp-uglify');
 const del =  require('del');
@@ -13,18 +15,19 @@ const browserSync =  require('browser-sync');
 
 const paths = {
   src: './src',
-  dest: './dest',
+  dest: './dist',
 }
 paths.html = [
   `${paths.src}/pages/**/*.{html,pug}`,
-  `!${paths.src}/**/_{*,**/*}`, // ignore files that start with _
+  `!${paths.src}/**/_{*,**/*}`,
 ]
 paths.css = [
-  `${paths.src}/css/normalize.css`,
-  `${paths.src}/css/fonts.css`,
-  `${paths.src}/css/base.css`,
-  `${paths.src}/css/global.css`,
-  `${paths.src}/components/**/*.css`,
+  `${paths.src}/css/**/*.{css,scss}`,
+  // `${paths.src}/css/normalize.scss`,
+  // `${paths.src}/css/fonts.scss`,
+  // `${paths.src}/css/base.scss`,
+  // `${paths.src}/css/global.scss`,
+  // `${paths.src}/components/**/*.scss`,
 ]
 paths.scripts = [
   `${paths.src}/js/util.js`,
@@ -44,9 +47,12 @@ const html = (done) => {
     .pipe(sourcemaps.init())
     .pipe(pug({
       basedir: "./src/",
+      locals: {
+        site: {},
+      }
     }))
     .on('error', function(err) {
-      console.log(err);
+      gutil.log(err);
       done()
     })
     .pipe(sourcemaps.write())
@@ -56,41 +62,33 @@ const html = (done) => {
 const css = (done) => {
   return gulp.src(paths.css, { sourcemaps: true })
     .pipe(sourcemaps.init())
-    .pipe(concat('style.css'))
-    .pipe(postcss([
-        customProperties,
-        nesting,
-        autoprefixer,
-    ]))
-    .on('error', function(err) {
-      console.log(err);
-      done()
-    })
+    .pipe(sass({outputStyle: 'compressed'}))
+    .on('error', sass.logError)
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest(`${paths.dest}/assets`));
+    .pipe(gulp.dest(`${paths.dest}/assets/css`));
 }
 
 const scripts = (done) => {
   return gulp.src(paths.scripts, { sourcemaps: true })
     .pipe(sourcemaps.init())
-    .pipe(concat('app.js'))
+    // .pipe(concat('app.js'))
     .pipe(babel())
     .on('error', function(err) {
-      console.log(err);
+      gutil.log(err);
       done()
     })
     // .pipe(uglify())
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest(`${paths.dest}/assets`));
+    .pipe(gulp.dest(`${paths.dest}/assets/js`));
 }
 
 const watch = () => {
   gulp.watch(`${paths.src}/**/*.{html,pug}`, html)
-  gulp.watch(`${paths.src}/**/*.css`, css)
+  gulp.watch(`${paths.src}/**/*.{css,scss}`, css)
   gulp.watch(`${paths.src}/**/*.js`, scripts)
 }
 
-const serve = (done) => {
+const serve = () => {
   browserSync({
     // https: true,
     // port: 3000,

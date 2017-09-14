@@ -1,9 +1,4 @@
 extends _layout.pug
 
-include /components/hello-world/hello-world.pug
-
 block main
-  +hello-world({
-    message: 'Hello world',
-    ending: '!',
-  })
+  include _hero

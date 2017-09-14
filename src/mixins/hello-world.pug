@@ -1,0 +1,5 @@
+mixin hello-world({message, ending} = {})
+  link(rel="stylesheet" href="/assets/css/hello-world.css")
+  if message
+    .m-hello-world
+      h1 #{message}#{ending}
