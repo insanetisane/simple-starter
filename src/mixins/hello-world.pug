@@ -1,5 +1,5 @@
-mixin hello-world({message, ending} = {})
-  link(rel="stylesheet" href="/assets/css/hello-world.css")
+mixin hello-world({message} = {})
   if message
+    link(rel="stylesheet" href="/assets/css/hello-world.css")
     .m-hello-world
-      h1 #{message}#{ending}
+      h1 #{message}

@@ -1,7 +1,10 @@
 include /mixins/hello-world.pug
-
+//- if critical
+//- append head
+  style
+    include /css/_hero.scss
+link(href="/assets/css/hero.css" rel='stylesheet')
 section#hero
   +hello-world({
-    message: 'Hello world',
-    ending: '!',
+    message: 'Hello world!',
   })
