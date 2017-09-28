@@ -1,25 +1,40 @@
 block settings
   -
-    title = "Simple Starter"
-    description = "A simple modular base with Pug Postcss and Babel"
+    title = 'Simple Starter'
+    description = 'A simple modular base with Pug Postcss and Babel'
+    page = ''
 
 doctype html
-html
+html(lang='en')
   head
     meta(charset='utf-8')
     meta(http-equiv='x-ua-compatible', content='ie=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    link(rel='manifest' href='/manifest.json')
+
     block title
       title #{title}
     block meta
-      meta(name="description", content="#{description}")
+      meta(name='description', content='#{description}')
     block styles
-      link(rel='stylesheet', href='assets/style.css')
+      //- link(rel='stylesheet', href='assets/css/style.css')
+      link(href='/assets/css/normalize.css' rel='stylesheet')
+      link(href='/assets/css/fonts.css' rel='stylesheet')
+      link(href='/assets/css/base.css' rel='stylesheet')
+      link(href='/assets/css/global.css' rel='stylesheet')
+
     block head
-  body
+  body(id=page)
     block body
     main
       block main
     block footer
+      include _footer
     block scripts
-      script(src='assets/app.js')
+      script(src='assets/js/app.js')
+      //- script.
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('service-worker.js', {
+              scope: './'
+          })
+        }

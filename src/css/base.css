@@ -1,9 +1,8 @@
+@import '_variables.css';
 /* Base */
 :root {
   font-size: 10px;
   box-sizing: border-box;
-
-  --base-color: #333;
 }
 
 *, *:before, *:after {
@@ -11,7 +10,7 @@
 }
 
 body {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-family: "Helvetica";
   font-weight: 300;
   color: var(--base-color);

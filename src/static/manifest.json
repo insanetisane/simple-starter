@@ -1,0 +1,9 @@
+{
+  "name": "Fledge Web Studio",
+  "short_name": "Fledge",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#fefefe",
+  "background_color": "#fff"
+}
