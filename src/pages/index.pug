@@ -1,9 +1,10 @@
 extends _layout.pug
 
+include /mixins/hello-world.pug
+
 append settings
   - page = 'p-index'
 
-include /mixins/hello-world.pug
 
 block main
   +hello-world({
